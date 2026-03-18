@@ -1,5 +1,14 @@
-from app.services.database_service import DatabaseService
+from app.dispatcher.dispatcher import Dispatcher
+from app.worker.worker import Worker
 
 if __name__ == "__main__":
-    db = DatabaseService()
-    print(db.test_connection())
+    
+    print("=== DISPATCHER ===")
+    dispatcher = Dispatcher()
+    dispatcher.run()
+
+    print("=== WORKER ===")
+    worker = Worker()
+    worker.process()
+
+    print("Finalizado!")

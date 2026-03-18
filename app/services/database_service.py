@@ -16,5 +16,23 @@ class DatabaseService:
             f"SERVER={server};"
             f"DATABASE={database};"
             "Trusted_Connection=yes;"
-            "TrustServerCertificate=yes;"
+            "TrustServerCertificate=yes;",
+            timeout=20
         )
+
+    def insert_cliente(self, cliente):
+        cursor = self.conn.cursor()
+
+        nome = cliente.nome or ""
+        email = cliente.email or ""
+
+        cursor.execute(
+            """
+            INSERT INTO clientes (nome, email)
+            VALUES (?, ?)
+            """,
+            nome,
+            email
+        )
+
+        self.conn.commit()
